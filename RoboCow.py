@@ -1,5 +1,6 @@
 import discord
 import random
+import os
 
 TOKEN = ''
 with open(r"token.no") as file:
@@ -9,8 +10,6 @@ eightBallResponses = []
 with open(r"eightBallResponses") as file:
     for line in file.readlines():
         eightBallResponses.append(line.strip())
-
-print(eightBallResponses)
 
 client = discord.Client()
 
@@ -30,9 +29,31 @@ async def on_message(message):
         return
     if message.content.startswith('!8ball'):
         responseIndex = random.randint(0, len(eightBallResponses))
-        print(responseIndex)
         channel = message.channel
         await channel.send(eightBallResponses[responseIndex])
+
+mport os
+hostname = "google.com" #example
+response = os.system("ping -c 1 " + hostname)
+
+#and then check the response...
+if response == 0:
+  print hostname, 'is up!'
+else:
+  print hostname, 'is down!'
+
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
+    if message.content.startswith('!server'):
+        hostname = "98.194.112.73"
+        response = os.system("ping -c 1 " + hostname)
+        if response == 0:
+            msg = 'Minecraft server is up'
+        else:
+            msg = 'Minecraft server is down'
+        await channel.send(msg)
 
 @client.event
 async def on_ready():
