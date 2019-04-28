@@ -2,12 +2,17 @@ import discord
 import random
 
 TOKEN = ''
-with open(r"token.no", "r") as file:
+with open(r"token.no") as file:
     TOKEN = file.read()
 
-client = discord.Client()
+eightBallResponses = []
+with open(r"eightBallResponses") as file:
+    for line in file.readlines():
+        eightBallResponses.append(line.strip())
 
-eightBallResponses = ['NO', 'YES', 'ASK AGAIN']
+print(eightBallResponses)
+
+client = discord.Client()
 
 @client.event
 async def on_message(message):
