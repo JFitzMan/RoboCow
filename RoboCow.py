@@ -14,6 +14,11 @@ print(eightBallResponses)
 
 client = discord.Client()
 
+def isDad(message):
+    if str(message.author) == 'cowsareinme#1533':
+        return ', Dad'
+    else: return ''
+
 @client.event
 async def on_message(message):
     if message.author == client.user:
@@ -22,21 +27,47 @@ async def on_message(message):
         hostname = "98.194.112.73"
         response = os.system("ping -c 1 " + hostname)
         if response == 0:
-            msg = 'Minecraft server is up'
+            msg = 'Minecraft server is up'+isDad(message)
         else:
-            msg = 'Minecraft server is down'
+            msg = 'Minecraft server is down'+isDad(message)
         channel = message.channel
         await channel.send(msg)
     if message.content.startswith('!ask'):
         responseIndex = random.randint(0, len(eightBallResponses)-1)
         channel = message.channel
-        print(responseIndex)
-        await channel.send(eightBallResponses[responseIndex])
+        await channel.send(eightBallResponses[responseIndex]+isDad(message))
     if message.content.startswith('!hello'):
         msg = 'Hello {0.author.mention}'.format(message)
+        if isDad(message) == ', Dad': msg = 'Hi Dad'
         channel = message.channel
         await channel.send(msg)
-    
+    if message.content.startswith('!roll'):
+        channel = message.channel
+        content = str(message.content)
+        s = content.split()
+        print(s)
+        nums = s[1].split('d')
+        if len(nums) == 1: nums = s[1].split('D')
+        if len(nums) == 1: 
+            await channel.send("Bad read format should look like '!roll xdx'")
+        else:
+            dice = int(nums[1])
+            times = int(nums[0])   
+            if dice > 10000000 or times > 10000000:
+                msg = 'That result is more numbers than discord will let me show you, so it''s over 10^1999'
+                await channel.send(msg)    
+            else:
+                result = 0
+                string = ''
+                for x in range(0, times):
+                    roll = random.randint(1, dice)
+                    string = string+str(roll)+' + '
+                    result+=roll
+                if len(str(string)) < 1900:
+                    msg = string[0:-3]+'\nRESULT: '+str(result)
+                else:
+                    msg = 'Discord won''t let me show you over 2000 lines of addition, so trust me on this one.\nRESULT: '+str(result)
+                await channel.send(msg)
 
 @client.event
 async def on_ready():
