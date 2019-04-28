@@ -10,37 +10,9 @@ eightBallResponses = []
 with open(r"eightBallResponses") as file:
     for line in file.readlines():
         eightBallResponses.append(line.strip())
+print(eightBallResponses)
 
 client = discord.Client()
-
-@client.event
-async def on_message(message):
-    if message.author == client.user:
-        return
-    if message.content.startswith('!hello'):
-        msg = 'Hello {0.author.mention}'.format(message)
-        channel = message.channel
-        await channel.send(msg)
-
-@client.event
-async def on_message(message):
-    global eightBallResponses
-    if message.author == client.user:
-        return
-    if message.content.startswith('!8ball'):
-        responseIndex = random.randint(0, len(eightBallResponses))
-        channel = message.channel
-        await channel.send(eightBallResponses[responseIndex])
-
-mport os
-hostname = "google.com" #example
-response = os.system("ping -c 1 " + hostname)
-
-#and then check the response...
-if response == 0:
-  print hostname, 'is up!'
-else:
-  print hostname, 'is down!'
 
 @client.event
 async def on_message(message):
@@ -53,7 +25,18 @@ async def on_message(message):
             msg = 'Minecraft server is up'
         else:
             msg = 'Minecraft server is down'
+        channel = message.channel
         await channel.send(msg)
+    if message.content.startswith('!ask'):
+        responseIndex = random.randint(0, len(eightBallResponses)-1)
+        channel = message.channel
+        print(responseIndex)
+        await channel.send(eightBallResponses[responseIndex])
+    if message.content.startswith('!hello'):
+        msg = 'Hello {0.author.mention}'.format(message)
+        channel = message.channel
+        await channel.send(msg)
+    
 
 @client.event
 async def on_ready():
