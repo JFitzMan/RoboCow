@@ -16,7 +16,7 @@ print(IP)
 GAME_CHANNELS = ['572156522071719945']
 
 eightBallResponses = []
-with open(r"eightBallResponses") as file:
+with open(r"home/pi/RoboCow/eightBallResponses") as file:
     for line in file.readlines():
         eightBallResponses.append(line.strip())
 print(eightBallResponses)
