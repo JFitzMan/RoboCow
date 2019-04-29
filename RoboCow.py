@@ -19,6 +19,32 @@ def isDad(message):
         return ', Dad'
     else: return ''
 
+async def rollDice(string):
+    s = string.split()
+    msg = ''
+    print(s)
+    nums = s[1].split('d')
+    if len(nums) == 1: nums = s[1].split('D')
+    if len(nums) == 1: 
+        await channel.send("Bad read format should look like '!roll xdx'")
+    else:
+        dice = int(nums[1])
+        times = int(nums[0])   
+        if dice >= 1000000000 or times > 100000000:
+            msg = "What does a dice of that many sides even look like?"
+        else:
+            result = 0
+            string = ''
+            for x in range(0, times):
+                roll = random.randint(1, dice)
+                string = string+str(roll)+' + '
+                result+=roll
+            if len(str(string)) < 1900:
+                msg = string[0:-3]+'\nRESULT: '+str(result)
+            else:
+                msg = 'Discord won''t let me show you over 2000 lines of addition, so trust me on this one.\nRESULT: '+str(result)
+    return msg
+
 @client.event
 async def on_message(message):
     if message.author == client.user:
@@ -44,30 +70,8 @@ async def on_message(message):
     if message.content.startswith('!roll'):
         channel = message.channel
         content = str(message.content)
-        s = content.split()
-        print(s)
-        nums = s[1].split('d')
-        if len(nums) == 1: nums = s[1].split('D')
-        if len(nums) == 1: 
-            await channel.send("Bad read format should look like '!roll xdx'")
-        else:
-            dice = int(nums[1])
-            times = int(nums[0])   
-            if dice > 10000000 or times > 10000000:
-                msg = 'That result is more numbers than discord will let me show you, so it''s over 10^1999'
-                await channel.send(msg)    
-            else:
-                result = 0
-                string = ''
-                for x in range(0, times):
-                    roll = random.randint(1, dice)
-                    string = string+str(roll)+' + '
-                    result+=roll
-                if len(str(string)) < 1900:
-                    msg = string[0:-3]+'\nRESULT: '+str(result)
-                else:
-                    msg = 'Discord won''t let me show you over 2000 lines of addition, so trust me on this one.\nRESULT: '+str(result)
-                await channel.send(msg)
+        msg = diceRoll(content)
+        await channel.send(msg)
 
 @client.event
 async def on_ready():
