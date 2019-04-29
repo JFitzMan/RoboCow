@@ -3,13 +3,13 @@ import random
 import os
 import asyncio
 
-TOKEN = 'uzbT1oave2-ljUGohiI3WmpO23kkQ9pp'
-#with open(r"token.no") as file:
-#    TOKEN = file.read()
+TOKEN = ''
+with open(r"token.private") as file:
+    TOKEN = file.read()
 print(TOKEN)
 
 IP = ''
-with open(r"ip.no") as file:
+with open(r"ip.private") as file:
     IP = file.read()
 print(IP)
 
