@@ -4,12 +4,12 @@ import os
 import asyncio
 
 TOKEN = ''
-with open(r"/home/pi.RoboCow/token.private") as file:
+with open(r"/home/pi/RoboCow/token.private") as file:
     TOKEN = file.read()
 print(TOKEN)
 
 IP = ''
-with open(r"home/pi.RoboCow/ip.private") as file:
+with open(r"home/pi/RoboCow/ip.private") as file:
     IP = file.read()
 print(IP)
 
