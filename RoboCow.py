@@ -6,6 +6,11 @@ TOKEN = ''
 with open(r"token.no") as file:
     TOKEN = file.read()
 
+IP = ''
+with open(r"ip.no") as file:
+    IP = file.read()
+print(IP)
+
 eightBallResponses = []
 with open(r"eightBallResponses") as file:
     for line in file.readlines():
@@ -50,14 +55,16 @@ async def on_message(message):
     if message.author == client.user:
         return
     if message.content.startswith('!server'):
-        hostname = "98.194.112.73"
-        response = os.system("ping -c 1 " + hostname)
+        response = os.system("ping -c 1 " + IP)
         if response == 0:
             msg = 'Minecraft server is up'+isDad(message)
         else:
             msg = 'Minecraft server is down'+isDad(message)
         channel = message.channel
         await channel.send(msg)
+    if message.content.startswith('!ip') or message.content.startswith('!IP'):
+        channel = message.channel
+        await channel.send(IP)
     if message.content.startswith('!ask'):
         responseIndex = random.randint(0, len(eightBallResponses)-1)
         channel = message.channel
