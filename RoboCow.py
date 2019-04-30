@@ -109,7 +109,7 @@ async def on_message(message):
         await channel.send(eightBallResponses[responseIndex]+isDad(message))
     if message.content.startswith('!hello'):
         msg = 'Hello {0.author.mention}'.format(message)
-        if isDad(message) == ', Dad': msg = 'Hi Dad'
+        if isDad(message) == ', Dad': msg = 'Hi Daddy'
         channel = message.channel
         await channel.send(msg)
     if message.content.startswith('!roll'):
