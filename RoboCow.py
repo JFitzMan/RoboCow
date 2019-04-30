@@ -1,3 +1,4 @@
+#!/bin/sh
 import discord
 import random
 import os
@@ -9,14 +10,14 @@ with open(r"/home/pi/RoboCow/token.private") as file:
 print(TOKEN)
 
 IP = ''
-with open(r"home/pi/RoboCow/ip.private") as file:
+with open(r"/home/pi/RoboCow/ip.private") as file:
     IP = file.read()
 print(IP)
 
 GAME_CHANNELS = ['572156522071719945']
 
 eightBallResponses = []
-with open(r"home/pi/RoboCow/eightBallResponses") as file:
+with open(r"/home/pi/RoboCow/eightBallResponses") as file:
     for line in file.readlines():
         eightBallResponses.append(line.strip())
 print(eightBallResponses)
