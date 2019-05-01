@@ -94,9 +94,19 @@ async def on_message(message):
         channel = message.channel
         await channel.send(IP)
     if message.content.startswith('!ask'):
-        responseIndex = random.randint(0, len(eightBallResponses)-1)
-        channel = message.channel
-        await channel.send(eightBallResponses[responseIndex]+isDad(message))
+        print(message.content[-2:])
+        if message.content[-2:] == '??' and str(message.author) == 'cowsareinme#1533':
+            msg = 'Fuck yeah'+isDad(message)
+            channel = message.channel
+            await channel.send(msg)
+        elif message.content[-1:] == '?'and str(message.author) == 'cowsareinme#1533':
+            msg = 'Fuck no'+isDad(message)
+            channel = message.channel
+            await channel.send(msg)
+        else:
+            responseIndex = random.randint(0, len(eightBallResponses)-1)
+            channel = message.channel
+            await channel.send(eightBallResponses[responseIndex]+isDad(message))
     if message.content.startswith('!hello'):
         msg = 'Hello {0.author.mention}'.format(message)
         if isDad(message) == ', Dad': msg = 'Hi Daddy'
