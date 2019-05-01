@@ -7,19 +7,19 @@ import asyncio
 import socket
 
 TOKEN = ''
-with open(r"token.private") as file:
+with open(r"/home/pi/RoboCow/token.private") as file:
     TOKEN = file.read()
 print(TOKEN)
 
 IP = ''
-with open(r"ip.private") as file:
+with open(r"/home/pi/RoboCow/ip.private") as file:
     IP = file.read()
 print(IP)
 
 GAME_CHANNELS = ['572156522071719945']
 
 eightBallResponses = []
-with open(r"eightBallResponses") as file:
+with open(r"home/pi/RoboCow/eightBallResponses") as file:
     for line in file.readlines():
         eightBallResponses.append(line.strip())
 print(eightBallResponses)
