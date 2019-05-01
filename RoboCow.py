@@ -96,13 +96,19 @@ async def on_message(message):
         return
     if message.content.startswith('!server'):
         server = MinecraftServer('98.194.112.73', 25565)
-        status = server.status()
-        if status:
-            msg = "The server has {0} players and replied in {1} ms".format(status.players.online, status.latency)
-        else:
-            msg = 'Offline'
-        channel = message.channel
-        await channel.send(msg)
+        try:
+            status = server.status()
+            msg = ''
+            if status:
+                msg = "The minecraft server has {0} players and replied in {1} ms".format(status.players.online, status.latency)
+            else:
+                msg = 'Offline'
+            channel = message.channel
+            await channel.send(msg)
+        except socket.error as socketerror:
+            msg = 'Minecraft server is offline'
+            channel = message.channel
+            await channel.send(msg)
     if message.content.startswith('!ip') or message.content.startswith('!IP'):
         channel = message.channel
         await channel.send(IP)
