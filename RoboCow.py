@@ -1,23 +1,25 @@
 #!/bin/sh
+from mcstatus import MinecraftServer
 import discord
 import random
 import os
 import asyncio
+import socket
 
 TOKEN = ''
-with open(r"/home/pi/RoboCow/token.private") as file:
+with open(r"token.private") as file:
     TOKEN = file.read()
 print(TOKEN)
 
 IP = ''
-with open(r"/home/pi/RoboCow/ip.private") as file:
+with open(r"ip.private") as file:
     IP = file.read()
 print(IP)
 
 GAME_CHANNELS = ['572156522071719945']
 
 eightBallResponses = []
-with open(r"/home/pi/RoboCow/eightBallResponses") as file:
+with open(r"eightBallResponses") as file:
     for line in file.readlines():
         eightBallResponses.append(line.strip())
 print(eightBallResponses)
@@ -93,11 +95,12 @@ async def on_message(message):
     if message.author == client.user:
         return
     if message.content.startswith('!server'):
-        response = os.system("ping -c 1 " + IP)
-        if response == 0:
-            msg = 'Minecraft server is up'+isDad(message)
+        server = MinecraftServer('98.194.112.73', 25565)
+        status = server.status()
+        if status:
+            msg = "The server has {0} players and replied in {1} ms".format(status.players.online, status.latency)
         else:
-            msg = 'Minecraft server is down'+isDad(message)
+            msg = 'Offline'
         channel = message.channel
         await channel.send(msg)
     if message.content.startswith('!ip') or message.content.startswith('!IP'):
