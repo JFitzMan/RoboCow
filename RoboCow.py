@@ -5,21 +5,27 @@ import random
 import os
 import asyncio
 import socket
+import platform
+
+# determines where it's being run to set the correct path
+path = ''
+if platform.system() != 'Darwin':
+    path = '/home/pi/RoboCow/'
 
 TOKEN = ''
-with open(r"token.private") as file:
+with open(path+'token.private') as file:
     TOKEN = file.read()
 print(TOKEN)
 
 IP = ''
-with open(r"ip.private") as file:
+with open(path+'ip.private') as file:
     IP = file.read()
 print(IP)
 
 GAME_CHANNELS = ['572156522071719945']
 
 eightBallResponses = []
-with open(r"eightBallResponses") as file:
+with open(path+'eightBallResponseses') as file:
     for line in file.readlines():
         eightBallResponses.append(line.strip())
 print(eightBallResponses)
@@ -33,31 +39,6 @@ def getHelp():
 !roll xDx - roll dice
 !ask - ask magic 8 ball
 """
-
-async def serverWatchdog(client):
-    ping = False
-    await client.wait_until_ready()
-    while True:
-        response = os.system("ping -c 1 " + IP)
-        if response == 0:
-            if ping == False:
-                ping = True
-                for chan in GAME_CHANNELS:
-                    channel = discord.Object(id=chan)
-                    print(channel)
-                    await client.send_message(channel, "Server is up")
-            else:
-                print('Ping unchanged: on')
-        else:
-            if ping == 1:
-                ping = False
-                channel = discord.Object(id='572156522071719945')
-                print(channel)
-                print('its off')
-            else:
-                print('Ping unchanged: off')
-
-        await asyncio.sleep(3)
 
 def isDad(message):
     if str(message.author) == 'cowsareinme#1533':
@@ -95,7 +76,7 @@ async def on_message(message):
     if message.author == client.user:
         return
     if message.content.startswith('!server'):
-        server = MinecraftServer('98.194.112.73', 25565)
+        server = MinecraftServer(IP, 25565)
         try:
             status = server.status()
             msg = ''
@@ -135,7 +116,8 @@ async def on_ready():
     print('Logged in as')
     print(client.user.name)
     print(client.user.id)
-  #client.loop.create_task(serverWatchdog(client))
+    # how to start an async child proc
+    #client.loop.create_task(serverWatchdog(client))
     print('LETS GO BOIS')
 
 client.run(TOKEN)
