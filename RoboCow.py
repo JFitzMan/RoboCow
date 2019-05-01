@@ -13,37 +13,19 @@ if platform.system() != 'Darwin':
     path = '/home/pi/RoboCow/'
 
 TOKEN = ''
-<<<<<<< HEAD
 with open(path+'token.private') as file:
-||||||| merged common ancestors
-with open(r"token.private") as file:
-=======
-with open(r"/home/pi/RoboCow/token.private") as file:
->>>>>>> f37da4d1c5a3fe316793aa88002b15fe6fc828cd
     TOKEN = file.read()
 print(TOKEN)
 
 IP = ''
-<<<<<<< HEAD
 with open(path+'ip.private') as file:
-||||||| merged common ancestors
-with open(r"ip.private") as file:
-=======
-with open(r"/home/pi/RoboCow/ip.private") as file:
->>>>>>> f37da4d1c5a3fe316793aa88002b15fe6fc828cd
     IP = file.read()
 print(IP)
 
 GAME_CHANNELS = ['572156522071719945']
 
 eightBallResponses = []
-<<<<<<< HEAD
 with open(path+'eightBallResponseses') as file:
-||||||| merged common ancestors
-with open(r"eightBallResponses") as file:
-=======
-with open(r"home/pi/RoboCow/eightBallResponses") as file:
->>>>>>> f37da4d1c5a3fe316793aa88002b15fe6fc828cd
     for line in file.readlines():
         eightBallResponses.append(line.strip())
 print(eightBallResponses)
