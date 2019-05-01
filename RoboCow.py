@@ -12,6 +12,7 @@ path = ''
 if platform.system() != 'Darwin':
     path = '/home/pi/RoboCow/'
 
+# keeps token and ip off public github
 TOKEN = ''
 with open(path+'token.private') as file:
     TOKEN = file.read()
@@ -22,7 +23,8 @@ with open(path+'ip.private') as file:
     IP = file.read()
 print(IP)
 
-GAME_CHANNELS = ['572156522071719945']
+# may be useful someday to know what channels are gaming related
+#GAME_CHANNELS = ['572156522071719945']
 
 eightBallResponses = []
 with open(path+'eightBallResponses') as file:
@@ -30,8 +32,9 @@ with open(path+'eightBallResponses') as file:
         eightBallResponses.append(line.strip())
 print(eightBallResponses)
 
+# initialize client
 client = discord.Client()
-
+#returns instructions string
 def getHelp():
     return """List of commands:
 !ip - get server IP
@@ -40,11 +43,13 @@ def getHelp():
 !ask - ask magic 8 ball
 """
 
+# returns ', Dad' if user is dad
 def isDad(message):
     if str(message.author) == 'cowsareinme#1533':
         return ', Dad'
     else: return ''
 
+# custom dice roll procedure
 def rollDice(string):
     s = string.split()
     msg = ''
@@ -71,6 +76,7 @@ def rollDice(string):
                 msg = 'Discord won''t let me show you over 2000 lines of addition, so trust me on this one.\nRESULT: '+str(result)
     return msg
 
+# listens for messages
 @client.event
 async def on_message(message):
     if message.author == client.user:
@@ -94,7 +100,6 @@ async def on_message(message):
         channel = message.channel
         await channel.send(IP)
     if message.content.startswith('!ask'):
-        print(message.content[-2:])
         if message.content[-2:] == '??' and str(message.author) == 'cowsareinme#1533':
             msg = 'Fuck yeah'+isDad(message)
             channel = message.channel
@@ -120,7 +125,13 @@ async def on_message(message):
     if message.content.startswith('!help'):
         channel = message.channel
         await channel.send(getHelp())
+    # Template for adding simple custom commands for anyone not comfy in python
+    #if message.content.startswith('{!COMMAND}'):
+        #msg = '{MESSAGE}'
+        #channel = message.channel
+        #await channel.send(msg)
 
+# runs at startup
 @client.event
 async def on_ready():
     print('Logged in as')
