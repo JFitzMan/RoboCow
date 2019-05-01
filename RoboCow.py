@@ -25,7 +25,7 @@ print(IP)
 GAME_CHANNELS = ['572156522071719945']
 
 eightBallResponses = []
-with open(path+'eightBallResponseses') as file:
+with open(path+'eightBallResponses') as file:
     for line in file.readlines():
         eightBallResponses.append(line.strip())
 print(eightBallResponses)
