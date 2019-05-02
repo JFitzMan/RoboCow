@@ -48,6 +48,11 @@ def isDad(message):
     if str(message.author) == 'cowsareinme#1533':
         return ', Dad'
     else: return ''
+# Calls Laura Crazy Lady
+def isCrazylady(message):
+    if str(message.author) == 'PsychoSqushie#2941':
+        return ', Crazy Lady'
+    else: return ''
 
 # custom dice roll procedure
 def rollDice(string):
