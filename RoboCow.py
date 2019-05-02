@@ -51,6 +51,14 @@ def isDad(message):
     elif str(message.author) == 'PsychoSqushie#2941':
         return ', Crazy Lady'
     else: return ''
+        # Calls Ryan Fool
+    elif str(message.author) == 'Excalibur#7087':
+        return ', Fool'
+    else: return ''
+        # Calls Shannon Muse
+    elif str(message.author) == 'Shannon@9098':
+        return ', Muse'
+    else: return ''
 
 
 # custom dice roll procedure
