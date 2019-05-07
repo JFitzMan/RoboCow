@@ -50,13 +50,11 @@ def isDad(message):
     # Calls Laura Crazy Lady
     elif str(message.author) == 'PsychoSqushie#2941':
         return ', Crazy Lady'
-    else: return ''
-        # Calls Ryan Fool
+    # Calls Ryan Fool
     elif str(message.author) == 'Excalibur#7087':
         return ', Fool'
-    else: return ''
-        # Calls Shannon Muse
-    elif str(message.author) == 'Shannon@9098':
+    # Calls Shannon Muse
+    elif str(message.author) == 'Shannon#9098':
         return ', Muse'
     else: return ''
 
