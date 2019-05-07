@@ -112,11 +112,11 @@ async def on_message(message):
         channel = message.channel
         await channel.send(IP)
     if message.content.startswith('!ask'):
-        if message.content[-2:] == '??' and str(message.author) == 'cowsareinme#1533':
+        if message.content[-2:] == '??':
             msg = 'Fuck yeah'+isDad(message)
             channel = message.channel
             await channel.send(msg)
-        elif message.content[-2:] == ' ?'and str(message.author) == 'cowsareinme#1533':
+        elif message.content[-2:] == ' ?':
             msg = 'Fuck no'+isDad(message)
             channel = message.channel
             await channel.send(msg)
