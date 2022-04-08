@@ -103,6 +103,17 @@ def isDad(message):
 def getUptime():
     global startTime
     return timedelta(seconds=(time.time()-startTime))
+    
+def getWaifu(string):
+    category = string.split()[1]
+    categories = 'waifu,neko,shinobu,megumin,bully,cuddle,cry,hug,awoo,kiss,lick,pat,smug,bonk,yeet,blush,smile,wave,highfive,handhold,nom,bite,glomp,slap,kill,kick,happy,wink,poke,dance,cringe'.split(',')
+    if category not in categories:
+        return 'Please pick from this cursed list (all sfw):\nwaifu, neko, shinobu ,megumin, bully, cuddle, cry, hug, awoo, kiss, lick, pat, smug, bonk, yeet, blush, smile, wave, highfive, handhold, nom, bite, glomp, slap, kill, kick, happy, wink, poke, dance, cringe'
+    else:
+        response = requests.get('https://api.waifu.pics/sfw/'+category)
+        url = json.loads(response.text)['url']
+        return url
+    
 
 # custom dice roll procedure
 def rollDice(string):
@@ -367,6 +378,12 @@ async def on_message(message):
         channel = message.channel
         content = str(message.content)
         msg = rollDice(content)
+        await channel.send(msg)
+        
+    if message.content.startswith('!waifu'):
+        channel = message.channel
+        content = str(message.content)
+        msg = getWaifu(content)
         await channel.send(msg)
 
     if message.content.startswith('!uptime'):
