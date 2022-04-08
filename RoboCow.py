@@ -51,7 +51,12 @@ CHANNELS = {
     "the-sewer, you heathen" : "619380141679968256"
 }
 
-TOKEN = 'NTcyMTU0Njc4NjE2MzkxNzQw.XMagkA.g6tHhbTKUbJjQT7yUlso9JG7nQQ'
+# keeps token and ip off public github
+TOKEN = ''
+with open(path+'token.private') as file:
+    TOKEN = file.read()
+print(TOKEN)
+
 IP = ''
 with open(path+slash+'ip.private') as file:
     IP = file.read()
